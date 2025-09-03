@@ -1,19 +1,25 @@
 {
   "name": "project-management-platform",
   "version": "1.0.0",
+  "description": "A full-stack project management platform with React and Express",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd backend && npm run dev",
     "client": "cd frontend && npm run dev",
     "build": "cd frontend && npm run build",
-    "start": "cd backend && npm start"
+    "start": "cd backend && npm start",
+    "docker:build": "docker build -t project-platform .",
+    "docker:run": "docker run -p 3000:3000 project-platform"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "react",
+    "express",
+    "project-management"
+  ],
+  "author": "Student",
+  "license": "MIT",
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^8.2.0"
   }
 }
