@@ -6,7 +6,6 @@ import logoImage from '../../public/assets/images/logo.png';
 const Login = () => {
     return (
         <div className="splash-page">
-            <div className="page-title">Login Page</div>
 
             {/* Login Form - Left Side */}
             <div className="register-form">

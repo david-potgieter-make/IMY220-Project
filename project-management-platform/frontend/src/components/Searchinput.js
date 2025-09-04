@@ -1,52 +1,45 @@
 import React, { useState, useEffect } from 'react';
 
-const SearchInput = ({ onSearch, placeholder = "Search..." }) => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [debouncedTerm, setDebouncedTerm] = useState('');
+const SearchInput = ({ onSearch, placeholder = "Search...", debounceMs = 300 }) => {
+    const [searchValue, setSearchValue] = useState('');
 
-    // Debounce search input
     useEffect(() => {
         const timer = setTimeout(() => {
-            setDebouncedTerm(searchTerm);
-        }, 300);
+            onSearch(searchValue);
+        }, debounceMs);
 
         return () => clearTimeout(timer);
-    }, [searchTerm]);
+    }, [searchValue, onSearch, debounceMs]);
 
-    // Call onSearch when debounced term changes
-    useEffect(() => {
-        onSearch(debouncedTerm);
-    }, [debouncedTerm, onSearch]);
-
-    const handleChange = (e) => {
-        setSearchTerm(e.target.value);
+    const handleInputChange = (e) => {
+        setSearchValue(e.target.value);
     };
 
     const handleClear = () => {
-        setSearchTerm('');
-        setDebouncedTerm('');
+        setSearchValue('');
         onSearch('');
     };
 
     return (
         <div className="search-input-container">
             <div className="search-input-wrapper">
-                <span className="search-icon">🔍</span>
+                <div className="search-icon">
+                    🔍
+                </div>
                 <input
                     type="text"
                     className="search-input"
+                    value={searchValue}
+                    onChange={handleInputChange}
                     placeholder={placeholder}
-                    value={searchTerm}
-                    onChange={handleChange}
                 />
-                {searchTerm && (
+                {searchValue && (
                     <button
-                        className="clear-button"
+                        className="clear-search-btn"
                         onClick={handleClear}
                         type="button"
-                        aria-label="Clear search"
                     >
-                        ×
+                        ✕
                     </button>
                 )}
             </div>

@@ -4,9 +4,10 @@ import Splash from './pages/Splash';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Project from './pages/Project';
+import Projects from './pages/Projects';
+import FeedPage from './pages/Feed';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-
 
 function App() {
     return (
@@ -16,10 +17,12 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/feed/global" element={<FeedPage feedType="global" />} />
+                <Route path="/feed/local" element={<FeedPage feedType="local" />} />
                 <Route path="/profile/:id" element={<Profile />} />
                 <Route path="/project/:id" element={<Project />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
-                <Route path="/project" element={<Project />} />
             </Routes>
         </div>
     );
