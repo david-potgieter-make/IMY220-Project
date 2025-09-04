@@ -7,7 +7,7 @@ import Project from './pages/Project';
 import Projects from './pages/Projects';
 import FeedPage from './pages/Feed';
 import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import Signup from './pages/Signup';
 
 function App() {
     return (

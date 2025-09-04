@@ -2,15 +2,21 @@
   "name": "project-management-platform",
   "version": "1.0.0",
   "description": "A full-stack project management platform with React and Express",
-  "main": "index.js",
+  "main": "backend/src/index.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && npm run dev",
-    "client": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build",
-    "start": "cd backend && npm start",
+    "server": "nodemon backend/src/index.js",
+    "client": "webpack serve --config webpack.config.js --mode development --open",
+    "build": "webpack --config webpack.config.js --mode production",
+    "start": "node backend/src/index.js",
     "docker:build": "docker build -t project-platform .",
     "docker:run": "docker run -p 3000:3000 project-platform"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
   },
   "keywords": [
     "react",
@@ -19,10 +25,25 @@
   ],
   "author": "Student",
   "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.3",
-    "@babel/preset-env": "^7.28.3",
-    "concurrently": "^8.2.0"
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.24.8",
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-react": "^7.24.7",
+    "babel-loader": "^9.1.3",
+    "concurrently": "^8.2.0",
+    "css-loader": "^7.1.2",
+    "nodemon": "^3.1.4",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }
