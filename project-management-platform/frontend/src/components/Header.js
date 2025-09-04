@@ -5,12 +5,10 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Clear authentication data
         localStorage.removeItem('user');
-        navigate('/');
+        navigate('/login'); // Redirect to login on logout
     };
 
-    // Mock current user data
     const currentUser = {
         id: '1',
         name: 'John Doe',
@@ -21,13 +19,13 @@ const Header = () => {
         <header className="header">
             <nav className="navbar">
                 <div className="nav-left">
-                    <Link to="/home" className="logo">ProjectHub</Link>
+                    <Link to="/profile/current" className="logo">ProjectHub</Link>
                     <div className="nav-links">
-                        <Link to="/home" className="nav-link">Dashboard</Link>
-                        <Link to="/profile/current" className="nav-link">Profile</Link>
+                        <Link to="/projects" className="nav-link">Projects</Link>
+                        <Link to="/feed/global" className="nav-link">Global Feed</Link>
+                        <Link to="/feed/local" className="nav-link">Local Feed</Link>
                     </div>
                 </div>
-
                 <div className="nav-right">
                     <div className="user-menu">
                         <div className="user-info">

@@ -1,27 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
+import logoImage from '../assets/images/logo.png';
 
 const Login = () => {
     return (
         <div className="splash-page">
+            <div className="page-title">Login Page</div>
+
+            {/* Login Form - Left Side */}
             <div className="register-form">
                 <h3>Login</h3>
-                <LoginForm />
-                <div className="login-link">
-                    Don't have an account? <Link to="/">Sign Up</Link>
+                <div className="form-content">
+                    <LoginForm />
+                    <div className="login-link">
+                        Don't have an account? <Link to="/">Sign Up</Link>
+                    </div>
                 </div>
             </div>
 
-            <div className="mission-card">
-                <div className="mission-header">
-                    <img src="/assets/images/logo.png" alt="syncPatch Logo" className="logo-icon" />
-                    <span>syncPatch</span>
+            {/* Logo - Top Right */}
+            <div className="logo-container">
+                <div className="logo-icon">
+                    <img src={logoImage} alt="Logo" />
                 </div>
-                <h3>Our Mission</h3>
-                <p>
-                    Keep people in sync on coding related work whilst highlighting the environmental responsibility we all have.
-                </p>
+
+            </div>
+
+            {/* Mission Card - Bottom Right */}
+            <div className="mission-card">
+                <div className="mission-header">Our Mission</div>
+                <div className="mission-content">
+                    <p>
+                        Keep people in sync on coding related work whilst highlighting
+                        the environmental responsibility we all have.
+                    </p>
+                </div>
             </div>
         </div>
     );
