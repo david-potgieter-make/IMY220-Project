@@ -13,11 +13,13 @@ const Profile = () => {
     const [showCreateProject, setShowCreateProject] = useState(false);
     const [activeTab, setActiveTab] = useState('details');
 
+    // Mock check if this is current user's profile
     const isOwnProfile = id === 'current' || id === '1';
 
     return (
-        <div className="profile-container wireframe">
+        <div className="profile-container">
             <Header />
+
             <main className="main-content">
                 <div className="profile-header">
                     <ProfileComponent
@@ -26,6 +28,7 @@ const Profile = () => {
                         onEdit={() => setIsEditing(true)}
                     />
                 </div>
+
                 <div className="profile-tabs">
                     <button
                         className={`tab-btn ${activeTab === 'details' ? 'active' : ''}`}
@@ -46,6 +49,7 @@ const Profile = () => {
                         Connections
                     </button>
                 </div>
+
                 <div className="profile-content">
                     {activeTab === 'details' && (
                         <div className="details-section">
@@ -56,13 +60,26 @@ const Profile = () => {
                                     onCancel={() => setIsEditing(false)}
                                 />
                             ) : (
-                                <div className="profile-details wireframe-content">
-                                    <div className="wireframe-card">About</div>
-                                    <div className="wireframe-card">Skills</div>
+                                <div className="profile-details">
+                                    <div className="detail-card">
+                                        <h3>About</h3>
+                                        <p>Experienced project manager with a passion for delivering high-quality results.
+                                            Specializes in agile methodologies and cross-functional team leadership.</p>
+                                    </div>
+                                    <div className="detail-card">
+                                        <h3>Skills</h3>
+                                        <div className="skills-list">
+                                            <span className="skill-tag">Project Management</span>
+                                            <span className="skill-tag">Agile/Scrum</span>
+                                            <span className="skill-tag">Team Leadership</span>
+                                            <span className="skill-tag">Strategic Planning</span>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
                     )}
+
                     {activeTab === 'projects' && (
                         <div className="projects-section">
                             {isOwnProfile && (
@@ -74,11 +91,13 @@ const Profile = () => {
                                 </button>
                             )}
                             <ProjectsList userId={id} />
+
                             {showCreateProject && (
                                 <CreateProject onClose={() => setShowCreateProject(false)} />
                             )}
                         </div>
                     )}
+
                     {activeTab === 'friends' && (
                         <div className="friends-section">
                             <FriendsList userId={id} />

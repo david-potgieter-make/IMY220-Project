@@ -7,6 +7,7 @@ import Project from './pages/Project';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 
+
 function App() {
     return (
         <div className="app">
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/profile/:id" element={<Profile />} />
                 <Route path="/project/:id" element={<Project />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
+                <Route path="/project" element={<Project />} />
             </Routes>
         </div>
     );

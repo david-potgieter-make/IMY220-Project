@@ -6,7 +6,7 @@ const Header = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
-        navigate('/login'); // Redirect to login on logout
+        navigate('/login');
     };
 
     const currentUser = {
@@ -19,7 +19,7 @@ const Header = () => {
         <header className="header">
             <nav className="navbar">
                 <div className="nav-left">
-                    <Link to="/profile/current" className="logo">ProjectHub</Link>
+                    <Link to="/home" className="logo">SyncPatch</Link>
                     <div className="nav-links">
                         <Link to="/projects" className="nav-link">Projects</Link>
                         <Link to="/feed/global" className="nav-link">Global Feed</Link>
