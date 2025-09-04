@@ -2,9 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './frontend/src/index.js',
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'frontend/dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -13,7 +13,9 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: 'babel-loader' }
+        use: {
+          loader: 'babel-loader'
+        }
       },
       {
         test: /\.css$/,
@@ -27,12 +29,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './frontend/public/index.html'
+      template: './public/index.html'
     })
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, 'frontend/dist'),
+      directory: path.join(__dirname, 'dist'),
     },
     compress: true,
     port: 3000,

@@ -17,7 +17,6 @@ const LoginForm = () => {
             [name]: value
         }));
 
-        // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -56,7 +55,6 @@ const LoginForm = () => {
         setIsSubmitting(true);
 
         try {
-            // Call API endpoint
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -68,7 +66,6 @@ const LoginForm = () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Store user data
                 localStorage.setItem('user', JSON.stringify(data.user));
                 navigate('/home');
             } else {
@@ -82,15 +79,15 @@ const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit}>
             {errors.general && (
-                <div className="error-message general-error">
+                <div style={{ color: '#ff4444', fontSize: '0.8rem', marginBottom: '1rem' }}>
                     {errors.general}
                 </div>
             )}
 
             <div className="form-group">
-                <label htmlFor="email">Email Address</label>
+                <label htmlFor="email">Email:</label>
                 <input
                     type="email"
                     id="email"
@@ -98,14 +95,13 @@ const LoginForm = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className={errors.email ? 'error' : ''}
-                    placeholder="Enter your email"
                     required
                 />
-                {errors.email && <span className="error-message">{errors.email}</span>}
+                {errors.email && <div className="error-message">{errors.email}</div>}
             </div>
 
             <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Password:</label>
                 <input
                     type="password"
                     id="password"
@@ -113,10 +109,9 @@ const LoginForm = () => {
                     value={formData.password}
                     onChange={handleChange}
                     className={errors.password ? 'error' : ''}
-                    placeholder="Enter your password"
                     required
                 />
-                {errors.password && <span className="error-message">{errors.password}</span>}
+                {errors.password && <div className="error-message">{errors.password}</div>}
             </div>
 
             <button
@@ -124,7 +119,7 @@ const LoginForm = () => {
                 className="submit-btn"
                 disabled={isSubmitting}
             >
-                {isSubmitting ? 'Signing In...' : 'Sign In'}
+                {isSubmitting ? 'Signing In...' : 'Submit'}
             </button>
         </form>
     );

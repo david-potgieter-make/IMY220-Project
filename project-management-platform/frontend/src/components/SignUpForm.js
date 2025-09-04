@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const SignUpForm = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        userName: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -20,7 +19,6 @@ const SignUpForm = () => {
             [name]: value
         }));
 
-        // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -32,16 +30,8 @@ const SignUpForm = () => {
     const validateForm = () => {
         const newErrors = {};
 
-        if (!formData.firstName) {
-            newErrors.firstName = 'First name is required';
-        } else if (formData.firstName.length < 2) {
-            newErrors.firstName = 'First name must be at least 2 characters';
-        }
-
-        if (!formData.lastName) {
-            newErrors.lastName = 'Last name is required';
-        } else if (formData.lastName.length < 2) {
-            newErrors.lastName = 'Last name must be at least 2 characters';
+        if (!formData.userName) {
+            newErrors.userName = 'User name is required';
         }
 
         if (!formData.email) {
@@ -52,10 +42,8 @@ const SignUpForm = () => {
 
         if (!formData.password) {
             newErrors.password = 'Password is required';
-        } else if (formData.password.length < 8) {
-            newErrors.password = 'Password must be at least 8 characters';
-        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
-            newErrors.password = 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
+        } else if (formData.password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters';
         }
 
         if (!formData.confirmPassword) {
@@ -79,15 +67,14 @@ const SignUpForm = () => {
         setIsSubmitting(true);
 
         try {
-            // Call API endpoint
             const response = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
+                    firstName: formData.userName,
+                    lastName: 'User',
                     email: formData.email,
                     password: formData.password
                 }),
@@ -96,7 +83,6 @@ const SignUpForm = () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Store user data
                 localStorage.setItem('user', JSON.stringify(data.user));
                 navigate('/home');
             } else {
@@ -110,47 +96,29 @@ const SignUpForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="signup-form">
+        <form onSubmit={handleSubmit}>
             {errors.general && (
-                <div className="error-message general-error">
+                <div style={{ color: '#ff4444', fontSize: '0.8rem', marginBottom: '1rem' }}>
                     {errors.general}
                 </div>
             )}
 
-            <div className="form-row">
-                <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        className={errors.firstName ? 'error' : ''}
-                        placeholder="First name"
-                        required
-                    />
-                    {errors.firstName && <span className="error-message">{errors.firstName}</span>}
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        className={errors.lastName ? 'error' : ''}
-                        placeholder="Last name"
-                        required
-                    />
-                    {errors.lastName && <span className="error-message">{errors.lastName}</span>}
-                </div>
+            <div className="form-group">
+                <label htmlFor="userName">User Name:</label>
+                <input
+                    type="text"
+                    id="userName"
+                    name="userName"
+                    value={formData.userName}
+                    onChange={handleChange}
+                    className={errors.userName ? 'error' : ''}
+                    required
+                />
+                {errors.userName && <div className="error-message">{errors.userName}</div>}
             </div>
 
             <div className="form-group">
-                <label htmlFor="email">Email Address</label>
+                <label htmlFor="email">Email:</label>
                 <input
                     type="email"
                     id="email"
@@ -158,14 +126,13 @@ const SignUpForm = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className={errors.email ? 'error' : ''}
-                    placeholder="Enter your email"
                     required
                 />
-                {errors.email && <span className="error-message">{errors.email}</span>}
+                {errors.email && <div className="error-message">{errors.email}</div>}
             </div>
 
             <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Password:</label>
                 <input
                     type="password"
                     id="password"
@@ -173,14 +140,13 @@ const SignUpForm = () => {
                     value={formData.password}
                     onChange={handleChange}
                     className={errors.password ? 'error' : ''}
-                    placeholder="Create a password"
                     required
                 />
-                {errors.password && <span className="error-message">{errors.password}</span>}
+                {errors.password && <div className="error-message">{errors.password}</div>}
             </div>
 
             <div className="form-group">
-                <label htmlFor="confirmPassword">Confirm Password</label>
+                <label htmlFor="confirmPassword">Confirm Password:</label>
                 <input
                     type="password"
                     id="confirmPassword"
@@ -188,10 +154,9 @@ const SignUpForm = () => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     className={errors.confirmPassword ? 'error' : ''}
-                    placeholder="Confirm your password"
                     required
                 />
-                {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+                {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
             </div>
 
             <button
@@ -199,7 +164,7 @@ const SignUpForm = () => {
                 className="submit-btn"
                 disabled={isSubmitting}
             >
-                {isSubmitting ? 'Creating Account...' : 'Create Account'}
+                {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
         </form>
     );

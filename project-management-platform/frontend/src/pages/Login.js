@@ -4,20 +4,24 @@ import LoginForm from '../components/LoginForm';
 
 const Login = () => {
     return (
-        <div className="auth-container">
-            <div className="auth-card">
-                <div className="auth-header">
-                    <Link to="/" className="logo">ProjectHub</Link>
-                    <h1>Welcome Back</h1>
-                    <p>Sign in to your account to continue</p>
-                </div>
-
+        <div className="splash-page">
+            <div className="register-form">
+                <h3>Login</h3>
                 <LoginForm />
-
-                <div className="auth-footer">
-                    <p>Don't have an account? <Link to="/signup">Create one here</Link></p>
-                    <p><Link to="/">← Back to home</Link></p>
+                <div className="login-link">
+                    Don't have an account? <Link to="/">Sign Up</Link>
                 </div>
+            </div>
+
+            <div className="mission-card">
+                <div className="mission-header">
+                    <img src="/assets/images/logo.png" alt="syncPatch Logo" className="logo-icon" />
+                    <span>syncPatch</span>
+                </div>
+                <h3>Our Mission</h3>
+                <p>
+                    Keep people in sync on coding related work whilst highlighting the environmental responsibility we all have.
+                </p>
             </div>
         </div>
     );
